@@ -1,0 +1,83 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+body {
+    background: url('https://odisaequipa.com.mx/wp-content/uploads/2021/03/cafeteria-tray-with-homemade-scones-and-croissants-6W85B5X-1-scaled.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-container {
+    display: flex;
+    width: 600px;
+    background: linear-gradient(to right, rgba(26, 26, 26, 0.9) 50%, rgba(255, 0, 0, 0.9) 85%);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(500, 1, 2, 0.9);
+    overflow: hidden;
+}
+.login-form {
+    width: 50%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login-form h2 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+.input-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.input-group label {
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #333;
+    color: #fff;
+}
+.btn-login {
+    width: 100%;
+    padding: 10px;
+    background: #ff0000;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    transition: 0.3s;
+}
+.btn-login:hover {
+    background: #cc0000;
+}
+.welcome-section {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 40px;
+}
+.welcome-section h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.welcome-section p {
+    font-size: 14px;
+}

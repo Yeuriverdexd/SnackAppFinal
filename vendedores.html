@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Vendedores</title>
+</head>
+<body>
+    <style>
+        .login-button {
+            background: linear-gradient(to right, #991b1b, #7f1d1d);
+            transition: all 0.3s ease;
+        }
+        .login-button:hover {
+            background: linear-gradient(to right, #b91c1c, #991b1b);
+            transform: translateY(-2px);
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #f4b400;
+            color: black;
+        }
+
+        .logout-button {
+    background: linear-gradient(to right, #991b1b, #7f1d1d);
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+    background: linear-gradient(to right, #b91c1c, #991b1b);
+    transform: translateY(-2px);
+}  
+    </style>
+    <!-- Navbar -->
+       <!-- Navbar -->
+       <nav class="bg-gradient-to-r from-red-900 via-red-800 to-black fixed w-full top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo Section -->
+                <div class="flex-shrink-0 flex items-center">
+                    <img src="Snack img/e.png" class="h-7 w-7 sm:h-8 sm:w-8 text-red-300"></img>
+                    <span class="ml-2 text-lg sm:text-xl font-semibold text-white">SnackApp</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-red-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">
+                        Inicio
+                    </a>
+                    <div class="relative group">
+                        <button class="text-red-100 group-hover:text-white px-3 py-2 text-sm font-medium inline-flex items-center transition-colors">
+                            Menú
+                            <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="absolute right-0 w-48 mt-2 origin-top-right bg-gradient-to-b from-red-900 to-black rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="py-1">
+                                <!-- <a id="vendedores-link" href="vendedores.html"  class="block px-4 py-2 text-sm text-red-100 hover:bg-red-800/50 hover:text-white" style="display: none;">Vendedores</a>            -->
+                                  <a href="#categories" class="block px-4 py-2 text-sm text-red-100 hover:bg-red-800/50 hover:text-white">
+                                    Menú
+                                </a>
+                                <a href="page2.html" class="block px-4 py-2 text-sm text-red-100 hover:bg-red-800/50 hover:text-white">
+                                    Productos
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-red-100 hover:bg-red-800/50 hover:text-white">
+                                    Servicios
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-red-100 hover:bg-red-800/50 hover:text-white">
+                                    Contacto
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="login-button" class="login-button px-4 py-2 rounded-full text-white font-medium shadow-lg">
+                        <span class="flex items-center">
+                            <i data-lucide="user" class="h-4 w-4 mr-2"></i>
+                            <li style="list-style: none;" id="login-text">
+                                <a href="loginNexus.html">Iniciar Sesión</a>
+                            </li>
+                        </span>
+                    </button>
+                    <button id="logout-button" class="logout-button px-4 py-2 rounded-full text-white font-medium shadow-lg" style="display: none;">
+                        Cerrar Sesión
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+<div class="md:hidden flex items-center space-x-4">
+  <!-- Logout icon (hidden by default) -->
+  <button id="mobile-logout-button" class="logout-button px-3 py-1 rounded-full text-white text-sm font-medium shadow-lg" style="display: none;">
+    <span class="flex items-center">
+      <i data-lucide="door-open" class="h-4 w-4"></i> <!-- Open door icon -->
+    </span>
+  </button>
+  <!-- Login icon (visible by default) -->
+  <button id="mobile-login-button" class="login-button px-3 py-1 rounded-full text-white text-sm font-medium shadow-lg">
+    <span class="flex items-center">
+      <a href="loginNexus.html"><i data-lucide="user" class="h-4 w-4"></i></a>
+    </span>
+  </button>
+  <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-red-100 hover:text-white hover:bg-red-800/50 transition-colors">
+    <i data-lucide="menu" class="h-6 w-6"></i>
+  </button>
+</div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 bg-gradient-to-b from-red-900 to-black shadow-lg">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-red-100 hover:text-white hover:bg-red-800/50">
+                    Inicio
+                </a>
+                <!-- <a id="vendedores-link" href="vendedores.html" style="display: none;">Vendedores</a> -->
+                <a href="page2.html" class="block px-3 py-2 rounded-md text-base font-medium text-red-100 hover:text-white hover:bg-red-800/50">
+                    Productos
+                </a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-red-100 hover:text-white hover:bg-red-800/50">
+                    Servicios
+                </a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-red-100 hover:text-white hover:bg-red-800/50">
+                    Contacto 
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- Table to Display Products -->
+  <table  style="margin-top: 100px;" class="table-auto" style="margin-top: 100px;">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Total</th>
+            <th>Fecha del Pedido</th>
+            <th>Código de Usuario</th> <!-- New column for order code -->
+        </tr>
+    </thead>
+    <tbody id="order-list">
+        <!-- Los pedidos se insertarán aquí -->
+    </tbody>
+</table>
+<script src="vendedores.js"></script>
+</body> 
+</html>

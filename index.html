@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snack App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .hover-rise {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-rise:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2);
+        }
+        .category-circle {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .category-circle:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(220, 38, 38, 0.2);
+        }
+        .slider-container {
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .slider-item {
+            scroll-snap-align: start;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .login-button {
+            background: linear-gradient(to right, #991b1b, #7f1d1d);
+            transition: all 0.3s ease;
+        }
+        .login-button:hover {
+            background: linear-gradient(to right, #b91c1c, #991b1b);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 640px) {
+            .slider-container {
+                height: 300px;
+            }
+            .category-circle .w-32 {
+                width: 5rem;
+                height: 5rem;
+            }
+            .category-circle .h-32 {
+                width: 5rem;
+                height: 5rem;
+            }
+            .category-circle i {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
+          
+ .logout-button {
+    background: linear-gradient(to right, #991b1b, #7f1d1d);
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+    background: linear-gradient(to right, #b91c1c, #991b1b);
+    transform: translateY(-2px);
+}  
+</style>
+</head>
+<body class="min-h-screen bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-red-900 via-red-800 to-black fixed w-full top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo Section -->
+                <div class="flex-shrink-0 flex items-center">
+                    <img src="Snack img/e.png" class="h-7 w-7 sm:h-8 sm:w-8 text-red-300"></img>
+                    <span class="ml-2 text-lg sm:text-xl font-semibold text-white">SnackApp</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-red-100 hover:text-white px-3 py-2 text-sm font-medium transition-colors">
+                        Inicio
+                    </a>
+                    <div class="relative group">
+                        <button class="text-red-100 group-hover:text-white px-3 py-2 text-sm font-medium inline-flex items-center transition-colors">
+                            Menú
+                            <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="absolute right-0 w-48 mt-2 origin-top-right bg-gradient-to-b from-red-900 to-black rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <div class="py-1">
+                                <a id="vendedores-link" href="vendedores.html"  class="block px-4 py-2 text-sm text-red-100 hover:bg-red-800/50 hover:text-white" style="display: none;">Vendedores</a>           
+                                  <a href="#categories" class="block px-4 py-2 text-sm text-red-100 hover:bg-red-800/50 hover:text-white">
+                                    Menú
+                                </a>
+                                <a href="page2.html" class="block px-4 py-2 text-sm text-red-100 hover:bg-red-800/50 hover:text-white">
+                                    Productos
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-red-100 hover:bg-red-800/50 hover:text-white">
+                                    Servicios
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-red-100 hover:bg-red-800/50 hover:text-white">
+                                    Contacto
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="login-button" class="login-button px-4 py-2 rounded-full text-white font-medium shadow-lg">
+                        <span class="flex items-center">
+                            <i data-lucide="user" class="h-4 w-4 mr-2"></i>
+                            <li style="list-style: none;" id="login-text">
+                                <a href="loginNexus.html">Iniciar Sesión</a>
+                            </li>
+                        </span>
+                    </button>
+                    <button id="logout-button" class="logout-button px-4 py-2 rounded-full text-white font-medium shadow-lg" style="display: none;">
+                        Cerrar Sesión
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+<div class="md:hidden flex items-center space-x-4">
+  <!-- Logout icon (hidden by default) -->
+  <button id="mobile-logout-button" class="logout-button px-3 py-1 rounded-full text-white text-sm font-medium shadow-lg" style="display: none;">
+    <span class="flex items-center">
+      <i data-lucide="door-open" class="h-4 w-4"></i> <!-- Open door icon -->
+    </span>
+  </button>
+  <!-- Login icon (visible by default) -->
+  <button id="mobile-login-button" class="login-button px-3 py-1 rounded-full text-white text-sm font-medium shadow-lg">
+    <span class="flex items-center">
+      <a href="loginNexus.html"><i data-lucide="user" class="h-4 w-4"></i></a>
+    </span>
+  </button>
+  <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-red-100 hover:text-white hover:bg-red-800/50 transition-colors">
+    <i data-lucide="menu" class="h-6 w-6"></i>
+  </button>
+</div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 bg-gradient-to-b from-red-900 to-black shadow-lg">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-red-100 hover:text-white hover:bg-red-800/50">
+                    Inicio
+                </a>
+                <!-- <a id="mobile-vendedores-link" href="vendedores.html" style="display: none;">Vendedores</a> -->
+                <a href="page2.html" class="block px-3 py-2 rounded-md text-base font-medium text-red-100 hover:text-white hover:bg-red-800/50">
+                    Productos
+                </a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-red-100 hover:text-white hover:bg-red-800/50">
+                    Servicios
+                </a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-red-100 hover:text-white hover:bg-red-800/50">
+                    Contacto 
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Slider -->
+    <div class="pt-16">
+        <div class="relative overflow-hidden">
+            <div class="slider-container flex overflow-x-auto hide-scrollbar">
+                <div class="slider-item flex-none w-full">
+                    <div class="relative h-[300px] sm:h-[400px] md:h-[500px] hover-rise">
+                        <img src="https://www.foodandwine.com/thmb/tM060YA0Fd0UALCmPQ-5gGWyBqA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Classic-Club-Sandwich-FT-RECIPE0523-99327c9c87214026b9419b949ee13a9c.jpg" 
+                             alt="Snacks Display" 
+                             class="w-full h-full object-cover brightness-75">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center text-white px-4">
+                                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4">Los Mejores Snacks</h2>
+                                <p class="text-lg sm:text-xl">Descubre nuestra variedad de productos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-item flex-none w-full">
+                    <div class="relative h-[300px] sm:h-[400px] md:h-[500px] hover-rise">
+                        <img src="https://img.freepik.com/fotos-premium/jugo-multiples-sabores-botella-plastico-transparente-mesa-madera_48883-184.jpg" 
+                             alt="Beverages Display" 
+                             class="w-full h-full object-cover brightness-75">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center text-white px-4">
+                                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4">Bebidas Refrescantes</h2>
+                                <p class="text-lg sm:text-xl">Para todos los gustos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-8 sm:py-12 md:py-16 px-4 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-gray-800">Nuestras Categorías</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
+                <!-- Sandwich -->
+                <div class="category-circle text-center">
+                    <div class="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center mb-3 sm:mb-4">
+                        <i data-lucide="sandwich" class="h-10 w-10 sm:h-14 sm:w-14 md:h-16 md:w-16 text-white"></i>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-semibold text-gray-800">Sandwich</h3>
+                </div>
+                <!-- Chips -->
+                <div class="category-circle text-center">
+                    <div class="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center mb-3 sm:mb-4">
+                        <i data-lucide="cookie" class="h-10 w-10 sm:h-14 sm:w-14 md:h-16 md:w-16 text-white"></i>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-semibold text-gray-800">Chips</h3>
+                </div>
+                <!-- Galletas -->
+                <div class="category-circle text-center">
+                    <div class="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center mb-3 sm:mb-4">
+                        <i data-lucide="cookie" class="h-10 w-10 sm:h-14 sm:w-14 md:h-16 md:w-16 text-white"></i>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-semibold text-gray-800">Galletas</h3>
+                </div>
+                <!-- Dulces -->
+                <div class="category-circle text-center">
+                    <div class="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center mb-3 sm:mb-4">
+                        <i data-lucide="candy" class="h-10 w-10 sm:h-14 sm:w-14 md:h-16 md:w-16 text-white"></i>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-semibold text-gray-800">Dulces</h3>
+                </div>
+                <!-- Jugos -->
+                <div class="category-circle text-center">
+                    <div class="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center mb-3 sm:mb-4">
+                        <i data-lucide="glass-water" class="h-10 w-10 sm:h-14 sm:w-14 md:h-16 md:w-16 text-white"></i>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-semibold text-gray-800">Jugos</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="py-8 sm:py-12 md:py-16 px-4 bg-gradient-to-r from-red-900 via-red-800 to-black text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Sobre Nosotros</h2>
+                    <p class="text-base sm:text-lg mb-6">
+                        Somos una empresa líder en la creacion de apps web y moviles en República Dominicana. 
+                        Nuestra misión es llevar los mejores aplicaciones a cada rincón del Mundo, garantizando 
+                        calidad y servicio excepcional.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 sm:gap-6 text-center">
+                        <div class="p-3 sm:p-4 bg-white/10 rounded-lg">
+                            <h3 class="text-xl sm:text-2xl font-bold">10+</h3>
+                            <p class="text-sm sm:text-base">Años de Experiencia</p>
+                        </div>
+                        <div class="p-3 sm:p-4 bg-white/10 rounded-lg">
+                            <h3 class="text-xl sm:text-2xl font-bold">1000+</h3>
+                            <p class="text-sm sm:text-base">Clientes Satisfechos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative mt-8 md:mt-0">
+                    <img src="https://cdn.pixabay.com/photo/2021/02/03/00/10/receptionists-5975962_960_720.jpg" 
+                         alt="Team" 
+                         class="rounded-lg shadow-2xl hover-rise w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="py-8 sm:py-12 md:py-16 px-4 bg-white">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12 text-gray-800">Síguenos en Redes Sociales</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+                <a href="https://www.instagram.com/nexu.scomputer/" class="hover-rise p-4 sm:p-6 rounded-xl bg-gradient-to-br from-red-50 to-red-100">
+                    <i data-lucide="instagram" class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mx-auto mb-3 sm:mb-4 text-red-800"></i>
+                    <h3 class="text-sm sm:text-base font-semibold text-gray-800">Instagram</h3>
+                </a>
+                <a href="#" class="hover-rise p-4 sm:p-6 rounded-xl bg-gradient-to-br from-red-50 to-red-100">
+                    <i data-lucide="facebook" class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mx-auto mb-3 sm:mb-4 text-red-800"></i>
+                    <h3 class="text-sm sm:text-base font-semibold text-gray-800">Facebook</h3>
+                </a>
+                <a href="#" class="hover-rise p-4 sm:p-6 rounded-xl bg-gradient-to-br from-red-50 to-red-100">
+                    <i data-lucide="twitter" class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mx-auto mb-3 sm:mb-4 text-red-800"></i>
+                    <h3 class="text-sm sm:text-base font-semibold text-gray-800">Twitter</h3>
+                </a>
+                <a href="#" class="hover-rise p-4 sm:p-6 rounded-xl bg-gradient-to-br from-red-50 to-red-100">
+                    <i data-lucide="youtube" class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mx-auto mb-3 sm:mb-4 text-red-800"></i>
+                    <h3 class="text-sm sm:text-base font-semibold text-gray-800">YouTube</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-red-900 via-red-800 to-black text-white py-8 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                <div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Nexus Dominicana SRL</h3>
+                    <p class="text-sm sm:text-base text-red-100">
+                        Llevando calidad y sabor a cada rincón de República Dominicana.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Contacto</h3>
+                    <div class="space-y-2 text-sm sm:text-base text-red-100">
+                        <p class="flex items-center">
+                            <i data-lucide="map-pin" class="h-4 w-4 sm:h-5 sm:w-5 mr-2"></i>
+                            Santo Domingo, RD
+                        </p>
+                        <p class="flex items-center">
+                            <i data-lucide="phone" class="h-4 w-4 sm:h-5 sm:w-5 mr-2"></i>
+                            +1 (809) 555-0123
+                        </p>
+                        <p class="flex items-center">
+                            <i data-lucide="mail" class="h-4 w-4 sm:h-5 sm:w-5 mr-2"></i>
+                            info@nexusrd.com
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Horario</h3>
+                    <div class="space-y-2 text-sm sm:text-base text-red-100">
+                        <p>Lunes - Viernes: 8:00 AM - 6:00 PM</p>
+                        <p>Sábado: 8:00 AM - 2:00 PM</p>
+                        <p>Domingo: Cerrado</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-red-700 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-sm sm:text-base text-red-100">
+                <p>&copy; 2024 Nexus Dominicana SRL. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = mobileMenuButton.querySelector('[data-lucide="menu"]');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.contains('hidden');
+            
+            if (isOpen) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.setAttribute('data-lucide', 'x');
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+            }
+            
+            lucide.createIcons();
+        });
+
+        // Auto-scroll slider
+        const sliderContainer = document.querySelector('.slider-container');
+        const sliderItems = document.querySelectorAll('.slider-item');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % sliderItems.length;
+            sliderContainer.scrollTo({
+                left: sliderItems[currentSlide].offsetLeft,
+                behavior: 'smooth'
+            });
+        }
+
+        // Change slide every 5 seconds
+        setInterval(nextSlide, 5000);
+    </script>
+    <script src="login.js"></script>
+</body>
+</html>
