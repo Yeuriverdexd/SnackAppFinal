@@ -24,16 +24,33 @@ async function registrarUsuario(event) {
     return;
   }
 
-  // Datos a enviar a Supabase
-  const datos = {
-    nombre: name, // Asegúrate de que coincida con el nombre de la columna en la tabla
-    apellido,
-    correo: email,
-    contrasena: password,
-    id_rol: 2, // Asigna un valor válido para el rol
-  };
-
   try {
+    // Verificar si el correo ya existe en la base de datos
+    const emailCheckResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/usuarios?correo=eq.${email}`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
+
+    const existingUsers = await emailCheckResponse.json();
+
+    if (existingUsers.length > 0) {
+      // Si el correo ya existe, mostrar un mensaje de error
+      alert("El correo electrónico ya está registrado. Por favor, usa otro.");
+      return;
+    }
+
+    // Datos a enviar a Supabase
+    const datos = {
+      nombre: name, // Asegúrate de que coincida con el nombre de la columna en la tabla
+      apellido,
+      correo: email,
+      contrasena: password,
+      id_rol: 2, // Asigna un valor válido para el rol
+    };
+
     // Realizar la inserción en Supabase
     const response = await fetch(`${SUPABASE_URL}/rest/v1/usuarios`, {
       method: "POST",
