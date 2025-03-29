@@ -50,7 +50,7 @@ async function loginUsuario(event) {
       updateNavbarBasedOnRole();
 
       alert("¡Inicio de sesión exitoso!");
-      window.location.href = "Index.html"; // Redirect to the home page
+      window.location.href = "index.html"; // Redirect to the home page
     } else {
       alert("Usuario o contraseña incorrectos.");
     }
