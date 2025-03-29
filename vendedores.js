@@ -133,8 +133,9 @@ async function displayOrders() {
   }
 }
 
-// Call the function when the page loads
-window.onload = function () {
+// Add event listeners
+document.addEventListener("DOMContentLoaded", () => {
+  // Update the navbar based on the user's role
   const userId = localStorage.getItem("userId");
   const userName = localStorage.getItem("userName");
   const userRole = localStorage.getItem("userRole");
@@ -153,10 +154,8 @@ window.onload = function () {
       mobileLogoutButton.style.display = "none";
     }
   }
-};
 
-// Add event listeners
-document.addEventListener("DOMContentLoaded", () => {
+  // Add event listeners for logout buttons
   const logoutButton = document.getElementById("logout-button");
   const mobileLogoutButton = document.getElementById("mobile-logout-button");
 
@@ -166,9 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (mobileLogoutButton) {
     mobileLogoutButton.addEventListener("click", logout);
   }
-});
 
-// Llamar a esta función para mostrar los pedidos cuando la página cargue
-window.onload = function () {
+  // Display orders when the page loads
   displayOrders();
-};
+});

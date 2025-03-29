@@ -8,6 +8,7 @@ const headers = {
   "Content-Type": "application/json",
 };
 
+
 // Function to check the user's role and update the navbar
 function updateNavbarBasedOnRole() {
   const userRole = localStorage.getItem("userRole"); // Get the user's role from localStorage
@@ -495,12 +496,11 @@ document
   .addEventListener("click", finalizarPedido);
 
 // Render products when the page loads
-window.onload = function () {
+document.addEventListener("DOMContentLoaded", () => {
+  // Render products
   renderProducts();
-};
 
-// Call the function when the page loads
-window.onload = function () {
+  // Check user login status and update the navbar
   const userId = localStorage.getItem("userId");
   const userName = localStorage.getItem("userName");
   const userRole = localStorage.getItem("userRole");
@@ -519,10 +519,8 @@ window.onload = function () {
       mobileLogoutButton.style.display = "none";
     }
   }
-};
 
-// Add event listeners
-document.addEventListener("DOMContentLoaded", () => {
+  // Add event listeners for logout buttons
   const logoutButton = document.getElementById("logout-button");
   const mobileLogoutButton = document.getElementById("mobile-logout-button");
 
